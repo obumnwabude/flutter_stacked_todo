@@ -7,23 +7,23 @@ import '../../services/todos.service.dart';
 
 class TodosScreenViewModel extends ReactiveViewModel {
   final _todosService = locator<TodosService>();
-  final firstFocusNode = FocusNode();
+  late final toggleStatus = _todosService.toggleStatus;
+  final _firstTodoFocusNode = FocusNode();
+  late final removeTodo = _todosService.removeTodo;
+  late final updateTodoContent = _todosService.updateTodoContent;
 
   List<Todo> get todos => _todosService.todos;
 
-  void changeStatus(int index) => _todosService.changeStatus(index);
-
   void newTodo() {
     _todosService.newTodo();
-    firstFocusNode.requestFocus();
+    _firstTodoFocusNode.requestFocus();
   }
 
-  void removeTodo(int index) => _todosService.removeTodo(index);
-
-  void updateContent(String text, int index) {
-    _todosService.updateContent(text, index);
+  FocusNode? getFocusNode(String id) {
+    final index = todos.indexWhere((todo) => todo.id == id);
+    return index == 0 ? _firstTodoFocusNode : null;
   }
-  
+
   @override
   List<ReactiveServiceMixin> get reactiveServices => [_todosService];
 }

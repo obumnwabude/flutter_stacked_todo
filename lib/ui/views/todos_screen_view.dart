@@ -27,32 +27,29 @@ class TodosScreenView extends StatelessWidget {
                   ],
                 ),
               ),
-            ...model.todos.asMap().entries.map((entry) {
+            ...model.todos.map((todo) {
               return ListTile(
                 leading: IconButton(
                   icon: Icon(
-                    entry.value.completed
-                        ? Icons.task_alt
-                        : Icons.radio_button_unchecked_outlined,
+                    todo.completed ? Icons.task_alt : Icons.circle_outlined,
                   ),
-                  onPressed: () => model.changeStatus(entry.key),
+                  onPressed: () => model.toggleStatus(todo.id),
                 ),
                 title: TextField(
                   decoration: null,
-                  controller: TextEditingController(text: entry.value.content),
-                  focusNode: entry.key == 0 ? model.firstFocusNode : null,
+                  controller: TextEditingController(text: todo.content),
+                  focusNode: model.getFocusNode(todo.id),
                   maxLines: null,
-                  onChanged: (text) => model.updateContent(text, entry.key),
+                  onChanged: (text) => model.updateTodoContent(todo.id, text),
                   style: TextStyle(
                     fontSize: 20,
-                    decoration: entry.value.completed
-                        ? TextDecoration.lineThrough
-                        : null,
+                    decoration:
+                        todo.completed ? TextDecoration.lineThrough : null,
                   ),
                 ),
                 trailing: IconButton(
-                  icon: const Icon(Icons.horizontal_rule_outlined),
-                  onPressed: () => model.removeTodo(entry.key),
+                  icon: const Icon(Icons.horizontal_rule),
+                  onPressed: () => model.removeTodo(todo.id),
                 ),
               );
             }),
