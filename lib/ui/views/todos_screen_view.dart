@@ -36,8 +36,8 @@ class TodosScreenView extends StatelessWidget {
                   onPressed: () => model.toggleStatus(todo.id),
                 ),
                 title: TextField(
-                  decoration: null,
                   controller: TextEditingController(text: todo.content),
+                  decoration: null,
                   focusNode: model.getFocusNode(todo.id),
                   maxLines: null,
                   onChanged: (text) => model.updateTodoContent(todo.id, text),

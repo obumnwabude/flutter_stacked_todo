@@ -4,6 +4,7 @@ import 'app/locator.dart';
 import 'ui/views/todos_screen_view.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
   runApp(const MyApp());
 }
@@ -13,8 +14,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: TodosScreenView(),
+    return MaterialApp(
+      home: const TodosScreenView(),
+      theme: ThemeData.dark(),
       title: 'Flutter Stacked Todos',
     );
   }

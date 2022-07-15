@@ -6,9 +6,9 @@ import '../../models/todo.dart';
 import '../../services/todos.service.dart';
 
 class TodosScreenViewModel extends ReactiveViewModel {
+  final _firstTodoFocusNode = FocusNode();
   final _todosService = locator<TodosService>();
   late final toggleStatus = _todosService.toggleStatus;
-  final _firstTodoFocusNode = FocusNode();
   late final removeTodo = _todosService.removeTodo;
   late final updateTodoContent = _todosService.updateTodoContent;
 
