@@ -11,7 +11,7 @@ class TodosScreenView extends StatelessWidget {
     return ViewModelBuilder<TodosScreenViewModel>.reactive(
       viewModelBuilder: () => TodosScreenViewModel(),
       builder: (context, model, _) => Scaffold(
-        appBar: AppBar(title: const Text('Todo')),
+        appBar: AppBar(title: const Text('Flutter Stacked Todos')),
         body: ListView(
           padding: const EdgeInsets.symmetric(vertical: 16),
           children: [
@@ -41,6 +41,7 @@ class TodosScreenView extends StatelessWidget {
                   decoration: null,
                   controller: TextEditingController(text: entry.value.content),
                   focusNode: entry.key == 0 ? model.firstFocusNode : null,
+                  maxLines: null,
                   onChanged: (text) => model.updateContent(text, entry.key),
                   style: TextStyle(
                     fontSize: 20,

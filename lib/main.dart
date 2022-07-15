@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'app/locator.dart';
 import 'ui/views/todos_screen_view.dart';
 
 void main() {
+  setupLocator();
   runApp(const MyApp());
 }
 
