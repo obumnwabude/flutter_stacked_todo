@@ -1,11 +1,14 @@
 import 'dart:math';
 
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stacked/stacked.dart';
 
 import '../models/todo.dart';
 
 class TodosService with ReactiveServiceMixin {
-  final _todos = ReactiveValue<List<Todo>>([]);
+  final _todos = ReactiveValue<List<Todo>>(
+    Hive.box('todos').get('todos', defaultValue: []).cast<Todo>(),
+  );
   final _random = Random();
 
   List<Todo> get todos => _todos.value;
@@ -20,10 +23,13 @@ class TodosService with ReactiveServiceMixin {
     );
   }
 
+  void _saveToHive() => Hive.box('todos').put('todos', _todos.value);
+
   bool toggleStatus(String id) {
     final index = _todos.value.indexWhere((todo) => todo.id == id);
     if (index != -1) {
-      todos[index].completed = !todos[index].completed;
+      _todos.value[index].completed = !_todos.value[index].completed;
+      _saveToHive();
       notifyListeners();
       return true;
     } else {
@@ -33,6 +39,7 @@ class TodosService with ReactiveServiceMixin {
 
   void newTodo() {
     _todos.value.insert(0, Todo(id: _randomId()));
+    _saveToHive();
     notifyListeners();
   }
 
@@ -40,6 +47,7 @@ class TodosService with ReactiveServiceMixin {
     final index = _todos.value.indexWhere((todo) => todo.id == id);
     if (index != -1) {
       _todos.value.removeAt(index);
+      _saveToHive();
       notifyListeners();
       return true;
     } else {
@@ -50,7 +58,8 @@ class TodosService with ReactiveServiceMixin {
   bool updateTodoContent(String id, String text) {
     final index = _todos.value.indexWhere((todo) => todo.id == id);
     if (index != -1) {
-      todos[index].content = text;
+      _todos.value[index].content = text;
+      _saveToHive();
       return true;
     } else {
       return false;
