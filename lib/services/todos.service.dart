@@ -25,6 +25,12 @@ class TodosService with ReactiveServiceMixin {
 
   void _saveToHive() => Hive.box('todos').put('todos', _todos.value);
 
+  void newTodo() {
+    _todos.value.insert(0, Todo(id: _randomId()));
+    _saveToHive();
+    notifyListeners();
+  }
+
   bool toggleStatus(String id) {
     final index = _todos.value.indexWhere((todo) => todo.id == id);
     if (index != -1) {
@@ -35,12 +41,6 @@ class TodosService with ReactiveServiceMixin {
     } else {
       return false;
     }
-  }
-
-  void newTodo() {
-    _todos.value.insert(0, Todo(id: _randomId()));
-    _saveToHive();
-    notifyListeners();
   }
 
   bool removeTodo(String id) {
