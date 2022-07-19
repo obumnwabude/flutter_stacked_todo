@@ -1,16 +1,7 @@
-# todo
+# Flutter Todo App with Stacked Architecture
 
-A new Flutter project.
+A simple one-screen dark-mode Todo App built with [Flutter](https://flutter.dev/). Specifically, it was built with the [Stacked architecture](https://pub.dev/packages/stacked).
 
-## Getting Started
+This app displays Todos one after the other. Each Todo has a "checkable circle" to toggle its completed status, its content, and a dash icon to remove it.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+[Read the article on how to build it on freeCodeCamp at ![](article_cover.png) https://www.freecodecamp.org/news/flutter-stacked-architecture-todo-app/](https://www.freecodecamp.org/news/flutter-stacked-architecture-todo-app/)
